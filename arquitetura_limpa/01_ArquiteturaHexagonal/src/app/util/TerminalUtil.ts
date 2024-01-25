@@ -1,7 +1,5 @@
 import { terminal } from "terminal-kit"
-
 export default class TerminalUtil {
-    // vamos ter função utilitaria para padronizar
     // menu terminal :
     static async menu(opcoes: string[]) {
         const resposta = await terminal.singleColumnMenu(
@@ -19,7 +17,7 @@ export default class TerminalUtil {
         terminal.magenta(`${texto}\n`)
         terminal.magenta(`-`.repeat(texto.length) + `\n`)
     }
-    // ! Opçao de configuração menu
+    // ! Opçao de configuração menu - Polimorfismo :
     //Selecionar tipo de carro :
     static async selecionar(
         texto: string,
@@ -56,5 +54,12 @@ export default class TerminalUtil {
 
     static exibirChaveValor(chave: string, valor: any) {
         terminal.yellow(chave).green(valor).white("\n")
+    }
+    // ? DIP
+    static async esperarEnter() {
+        terminal.white(
+            "\nPressione ENTER para continuar...."
+        )
+        await terminal.inputField({ echo: false }).promise
     }
 }
