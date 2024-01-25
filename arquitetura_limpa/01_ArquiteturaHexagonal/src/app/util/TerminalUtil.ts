@@ -62,6 +62,20 @@ export default class TerminalUtil {
         )
         await terminal.inputField({ echo: false }).promise
     }
+    static async sucesso(texto: string) {
+        terminal.green(texto)
+    }
 
     // ? Registrar user
+    static async camposRequerido(
+        label: string,
+        valorPadrao: string = ""
+    ): Promise<string> {
+        terminal.yellow(`\n${label}`)
+        const valor = await terminal.inputField({
+            default: valorPadrao,
+        }).promise
+        if (valor) return valor
+        return TerminalUtil.camposRequerido(label)
+    }
 }

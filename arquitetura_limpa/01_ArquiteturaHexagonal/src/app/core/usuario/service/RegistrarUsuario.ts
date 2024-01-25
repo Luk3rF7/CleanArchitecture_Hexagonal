@@ -9,7 +9,7 @@ export default class RegistrarUsuario
         const senhaCripto = usuario.senha
             .split("")
             .reverse()
-            .join()
-        console.log(senhaCripto)
+            .join("")
+        console.log(`\n\n${senhaCripto}`)
     }
 }
