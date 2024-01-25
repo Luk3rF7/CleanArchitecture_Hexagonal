@@ -62,8 +62,17 @@ export default class TerminalUtil {
         )
         await terminal.inputField({ echo: false }).promise
     }
-    static async sucesso(texto: string) {
-        terminal.green(texto)
+    static async sucesso(
+        texto: string,
+        novaLinha: boolean = true
+    ) {
+        terminal.green((novaLinha ? "\n" : "") + texto)
+    }
+    static async error(
+        texto: string,
+        novaLinha: boolean = true
+    ) {
+        terminal.red((novaLinha ? "\n" : "") + texto)
     }
 
     // ? Registrar user
