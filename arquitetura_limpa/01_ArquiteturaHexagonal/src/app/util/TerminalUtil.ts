@@ -62,4 +62,6 @@ export default class TerminalUtil {
         )
         await terminal.inputField({ echo: false }).promise
     }
+
+    // ? Registrar user
 }

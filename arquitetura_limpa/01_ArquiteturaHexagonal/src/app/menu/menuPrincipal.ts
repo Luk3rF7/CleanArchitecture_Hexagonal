@@ -1,12 +1,14 @@
 // vamos contruir menu principal
 import TerminalUtil from "@/app/util/TerminalUtil"
 import menuFundamentos from "./menuFundamentos"
+import menuUsuario from "./menuUsuario"
 
 export default async function menuPrincipal() {
     TerminalUtil.titulo("menu Principal")
 
     const [indice] = await TerminalUtil.menu([
         "1.Fundamentos",
+        "2. Usuário",
         "Sair",
     ])
 
@@ -15,6 +17,9 @@ export default async function menuPrincipal() {
             await menuFundamentos()
             break
         case 1:
+            await menuUsuario()
+            break
+        default:
             process.exit(0)
     }
     menuPrincipal()
