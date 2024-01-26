@@ -1,5 +1,6 @@
 // vamos contruir menu principal
-import TerminalUtil from "@/app/util/TerminalUtil"
+
+import TerminalUtil from "../util/TerminalUtil"
 import menuFundamentos from "./menuFundamentos"
 import menuUsuario from "./menuUsuario"
 

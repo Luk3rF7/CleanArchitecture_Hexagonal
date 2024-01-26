@@ -1,7 +1,7 @@
 // vamos contruir menu principal
-import TerminalUtil from "@/app/util/TerminalUtil"
-import menuFundamentos from "./menuFundamentos"
+
 import registrarUsuario from "../usuario/registrarUsuario"
+import TerminalUtil from "../util/TerminalUtil"
 
 export default async function menuUsuario() {
     TerminalUtil.titulo("Usuário")

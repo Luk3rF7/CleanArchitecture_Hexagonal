@@ -1,8 +1,10 @@
+//
+import Fusca from "@/core/fundamentos/Fusca"
+import Civic from "@/core/fundamentos/Civic"
+import Ferrari from "@/core/fundamentos/Ferrari"
+import corrida from "@/core/fundamentos/Corrida"
+//
 import { terminal } from "terminal-kit"
-import Civic from "../core/fundamentos/Civic"
-import corrida from "../core/fundamentos/Corrida"
-import Ferrari from "../core/fundamentos/Ferrari"
-import Fusca from "../core/fundamentos/Fusca"
 import TerminalUtil from "../util/TerminalUtil"
 
 export default async function dip() {

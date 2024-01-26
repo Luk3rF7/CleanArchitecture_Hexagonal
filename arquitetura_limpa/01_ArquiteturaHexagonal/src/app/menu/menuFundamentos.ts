@@ -1,5 +1,5 @@
-import TerminalUtil from "@/app/util/TerminalUtil"
 import polimorfismo from "../Fundamentos/polimorfismo"
+import TerminalUtil from "../util/TerminalUtil"
 import dip from "../Fundamentos/dip"
 
 export default async function menuFundamentos() {
