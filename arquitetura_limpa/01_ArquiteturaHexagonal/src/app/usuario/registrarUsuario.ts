@@ -1,45 +1,36 @@
-import InverteSenhaCripto from "@/adapter/auth/inverteSenhaCripto"
 import RegistrarUsuario from "@/core/usuario/service/RegistrarUsuario"
 import Usuario from "@/core/usuario/model/Usuario"
 import TerminalUtil from "../util/TerminalUtil"
-import EspacoSenhaCripto from "@/adapter/auth/EspacoSenhacripto"
 import SenhaCripto from "@/adapter/auth/senhaBcrypt"
-import RepositorioUsuarioEmMemoria from "@/adapter/mock/RegistrarUsuarioEmMemoria"
+import RepositorioUsuarioPg from "@/adapter/database/RegistrarUsuarioPg"
 
 export default async function registrarUsuario() {
-    TerminalUtil.titulo("Registrar Usuário")
-    const email = await TerminalUtil.camposRequerido(
-        "email : ",
-        "User1@email.com"
-    )
-    const nome = await TerminalUtil.camposRequerido(
-        "Nome : ",
-        "user1 "
-    )
-    const senha = await TerminalUtil.camposRequerido(
-        "senha : ",
-        "abc123"
-    )
-
+    const {
+        camposRequerido,
+        titulo,
+        sucesso,
+        error,
+        esperarEnter,
+    } = TerminalUtil
+    titulo("Registrar Usuário")
+    const email = await camposRequerido("email : ")
+    const nome = await camposRequerido("Nome : ")
+    const senha = await camposRequerido("senha : ")
     const usuario: Usuario = { email, nome, senha }
-    // 1 adaptador :new EspacoSenhaCripto()
-    // 2 adaptador : new InverteSenhaCripto()
-    const provedorCriptografia = new SenhaCripto()
-    const repositorio = new RepositorioUsuarioEmMemoria()
-    const CasoDeUso = new RegistrarUsuario(
-        repositorio,
-        provedorCriptografia
-    )
-    //
-    await CasoDeUso.executar(usuario)
-
-    TerminalUtil.sucesso("Usuário registrado com sucesso!")
-    await TerminalUtil.esperarEnter()
     try {
+        const repositorio = new RepositorioUsuarioPg()
+        // 1 adaptador :new EspacoSenhaCripto()
+        // 2 adaptador : new InverteSenhaCripto()
+        const provedorCriptografia = new SenhaCripto()
+        const CasoDeUso = new RegistrarUsuario(
+            repositorio,
+            provedorCriptografia
+        )
         await CasoDeUso.executar(usuario)
+        sucesso("Usuário registrado com sucesso!")
     } catch (err: any) {
-        TerminalUtil.error(err)
+        error(err)
     } finally {
-        await TerminalUtil.esperarEnter()
+        await esperarEnter()
     }
 }
