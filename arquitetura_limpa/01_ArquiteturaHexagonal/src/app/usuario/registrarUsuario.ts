@@ -4,6 +4,7 @@ import Usuario from "@/core/usuario/model/Usuario"
 import TerminalUtil from "../util/TerminalUtil"
 import EspacoSenhaCripto from "@/adapter/auth/EspacoSenhacripto"
 import SenhaCripto from "@/adapter/auth/senhaBcrypt"
+import RepositorioUsuarioEmMemoria from "@/adapter/mock/RegistrarUsuarioEmMemoria"
 
 export default async function registrarUsuario() {
     TerminalUtil.titulo("Registrar Usuário")
@@ -21,10 +22,12 @@ export default async function registrarUsuario() {
     )
 
     const usuario: Usuario = { email, nome, senha }
-    const provedorCriptografia = new SenhaCripto()
     // 1 adaptador :new EspacoSenhaCripto()
     // 2 adaptador : new InverteSenhaCripto()
+    const provedorCriptografia = new SenhaCripto()
+    const repositorio = new RepositorioUsuarioEmMemoria()
     const CasoDeUso = new RegistrarUsuario(
+        repositorio,
         provedorCriptografia
     )
     //

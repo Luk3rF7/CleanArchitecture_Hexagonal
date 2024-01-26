@@ -1,28 +1,29 @@
 import CasoDeUso from "@/core/shared/casoDeUso"
 import Usuario from "../model/Usuario"
 import ProvedorCriptografia from "./ProvedorCriptografia"
-import RepositorioUsuarioEmMemoria from "./RegistrarUsuarioEmMemoria"
+import RepositorioUsuarioEmMemoria from "../../../adapter/mock/RegistrarUsuarioEmMemoria"
 import Errors from "@/core/shared/Errors"
 import Id from "@/core/shared/id"
+import RepositorioUsuario from "./RespositorioUsuario"
 
 export default class RegistrarUsuario
     implements CasoDeUso<Usuario, void>
 {
     constructor(
+        private repositorio: RepositorioUsuario,
         private provedorCripto: ProvedorCriptografia
     ) {}
     //
     async executar(usuario: Usuario): Promise<void> {
-        // usuario em memoria hard code
-        const repo = new RepositorioUsuarioEmMemoria()
         // cript  senha exemplos
         const senhaCripto =
             this.provedorCripto.criptografar(usuario.senha)
 
         //check se usuario existe
-        const UsuarioExistente = await repo.buscarPorEmail(
-            usuario.email
-        )
+        const UsuarioExistente =
+            await this.repositorio.buscarPorEmail(
+                usuario.email
+            )
         if (UsuarioExistente)
             throw new Error(Errors.USUARIO_JA_EXISTE)
         // registro do usuario
@@ -33,7 +34,7 @@ export default class RegistrarUsuario
             senha: senhaCripto,
         }
 
-        repo.inserir(newUsuario)
+        this.repositorio.inserir(newUsuario)
         console.log(
             `\n\n userRegister : ${JSON.stringify(
                 newUsuario
